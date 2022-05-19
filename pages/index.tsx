@@ -1,10 +1,31 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { getHomePage } from 'queries/queries';
+
 import styles from '@/styles/HomePage.module.css';
-const HomePage: NextPage = () => {
+
+import { FC } from 'react';
+
+interface HomePageProps {
+  data: {
+    id: string;
+    logo: string;
+    heading: string;
+    description: {
+      html: string;
+      text: string;
+    };
+    image: {
+      url: string;
+    };
+  };
+}
+
+const HomePage: NextPage<HomePageProps> = ({ data }) => {
+  const { id, logo, heading, description, image } = data;
   return (
     <div className={styles.container}>
       <Head>
@@ -21,12 +42,6 @@ const HomePage: NextPage = () => {
       </div>
 
       <div className={styles.top_box}>
-        <div className={styles.social_links}>
-          <span>git</span>
-          <span>li</span>
-          <span>gmail</span>
-        </div>
-
         <div className={styles.profile}>
           <Image
             src="/imgs/profile.png"
@@ -37,15 +52,8 @@ const HomePage: NextPage = () => {
         </div>
 
         <div className={styles.intro}>
-          <h2>
-            Breathing in the aroma <br /> of creativity
-          </h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-            impedit accusamus nisi veritatis sequi deserunt vero quae eum harum
-            fugiat. Quod est cupiditate cumque amet laudantium, perferendis
-            temporibus. Est, dolores?
-          </p>
+          <h2>{heading}</h2>
+          <p>{description.text}</p>
         </div>
       </div>
       <div className={styles.bottom_right_box}>
@@ -62,9 +70,7 @@ const HomePage: NextPage = () => {
               </Link>
             </li>
             <li>
-              <Link href="/contact">
-                <a>contact</a>
-              </Link>
+              <a href="mailto:ansh1999arora@gmail.com">contact</a>
             </li>
           </ul>
         </nav>
@@ -74,3 +80,13 @@ const HomePage: NextPage = () => {
 };
 
 export default HomePage;
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const data = await getHomePage();
+  console.log(data.data.homePages);
+  return {
+    props: {
+      data: data.data.homePages[0],
+    },
+  };
+};

@@ -1,19 +1,78 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { GetStaticProps } from 'next';
+import { getProjects } from 'queries/queries';
+
+import Link from 'next/link';
 
 import styles from '@/styles/ProjectsPage.module.css';
+import Project from '@/components/Project/Project';
 
-const ProjectsPage: NextPage = () => {
+interface ProjectsPageProps {
+  id: string;
+  name: string;
+  shortDescription: string | null;
+  description: {
+    html: string;
+    text: string;
+  };
+  image: {
+    url: string;
+  };
+}
+
+const ProjectsPage: NextPage<{ data: ProjectsPageProps[] }> = ({ data }) => {
   return (
-    <div>
+    <div className={styles.ProjectsPage}>
       <Head>
         <title>Projects</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Projects</h1>
+      <Link href="/">
+        <a>
+          <img className={styles.back} alt="back" src="/imgs/back.svg"></img>
+        </a>
+      </Link>
+
+      <div className={styles.container}>
+        <div className={styles.project_links}>
+          <p>Project 1</p>
+          <p>Project 2</p>
+          <p>Project 3</p>
+          <p>Project 4</p>
+        </div>
+        <div className={styles.left}>
+          <h1 className={styles.heading}>
+            Recent <br /> Projects
+          </h1>
+        </div>
+        <div className={styles.right}>
+          <div className={styles.image_wrapper}>
+            <img src="/imgs/Enthusiastic.gif" alt="projects" />
+          </div>
+        </div>
+      </div>
+      {data.map((project) => (
+        <Project
+          key={project.id}
+          name={project.name}
+          description={project.description.text}
+          image={project.image.url}
+        />
+      ))}
     </div>
   );
 };
 
 export default ProjectsPage;
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const data = await getProjects();
+  console.log(data.data.projects);
+  return {
+    props: {
+      data: data.data.projects,
+    },
+  };
+};

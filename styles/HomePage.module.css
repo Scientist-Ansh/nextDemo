@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap');
 .logo {
   font-size: 10rem;
   position: absolute;
@@ -31,6 +30,10 @@
   bottom: 50px;
 }
 
+.intro h2 {
+  word-wrap: break-word;
+}
+
 .bottom_box {
   position: absolute;
   background-color: #fff2c5;
@@ -39,19 +42,6 @@
   right: 0;
   bottom: 0;
 }
-
-.social_links {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
-  font-weight: bold;
-}
-
-/* .bottom_box div {
-  height: 100%;
-  width: 100%;
-} */
 
 .bottom_right_box {
   position: absolute;
@@ -71,7 +61,7 @@
   font-weight: bold;
 }
 
-.nav_links li {
+.nav_links li a {
   padding: 10px 0;
   border-bottom: 2px solid;
 }
