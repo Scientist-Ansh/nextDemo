@@ -8,12 +8,17 @@ import Link from 'next/link';
 
 const Header: FC = () => {
   const router = useRouter();
+  const color = router.pathname === '/projects' ? 'hidden' : 'visible';
   return (
     <div className={styles.container}>
-      <div className={styles.left}>
-        <span className={styles.logo}>Ansh</span>
+      <div className={styles.left} style={{ visibility: color }}>
+        <Link href="/">
+          <a>
+            <span className={styles.logo}>Ansh</span>
 
-        <span className={styles.role}>web developer</span>
+            <span className={styles.role}>web developer</span>
+          </a>
+        </Link>
       </div>
       <div className={styles.right}>
         <div>
@@ -21,28 +26,32 @@ const Header: FC = () => {
             {router.pathname === '/' ? (
               <div className={styles.social_links}>
                 <span>
-                  <Image
-                    height={35}
-                    width={35}
-                    src="/imgs/fb.png"
-                    alt="facebook"
-                  />
+                  <a
+                    href="https://www.linkedin.com/in/ansh-arora-9aaa87153/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Image
+                      height={35}
+                      width={35}
+                      src="/imgs/linkedin.png"
+                      alt="linkedin"
+                    />
+                  </a>
                 </span>
                 <span>
-                  <Image
-                    height={35}
-                    width={35}
-                    src="/imgs/linkedin.png"
-                    alt="linkedin"
-                  />
-                </span>
-                <span>
-                  <Image
-                    height={35}
-                    width={35}
-                    src="/imgs/github.png"
-                    alt="github"
-                  />
+                  <a
+                    href="https://github.com/Scientist-Ansh"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Image
+                      height={35}
+                      width={35}
+                      src="/imgs/github.png"
+                      alt="github"
+                    />
+                  </a>
                 </span>
               </div>
             ) : (

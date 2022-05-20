@@ -40,7 +40,7 @@ const ProjectsPage: NextPage<{ data: ProjectsPageProps[] }> = ({ data }) => {
           <p>Project 1</p>
           <p>Project 2</p>
           <p>Project 3</p>
-          <p>Project 4</p>
+          {/* <p>Project 4</p> */}
         </div>
         <div className={styles.left}>
           <h1 className={styles.heading}>
@@ -57,6 +57,7 @@ const ProjectsPage: NextPage<{ data: ProjectsPageProps[] }> = ({ data }) => {
         <Project
           key={project.id}
           name={project.name}
+          shortDescription={project.shortDescription}
           description={project.description.text}
           image={project.image.url}
         />
